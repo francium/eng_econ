@@ -56,7 +56,7 @@ def f_given_p(interest, periods=1):
         Compound Interest Factor.
     '''
     value = (1 + interest) ** periods
-    return round7(value)
+    return _round7(value)
 
 
 def p_given_f(interest, periods=1):
@@ -64,7 +64,7 @@ def p_given_f(interest, periods=1):
         Present Worth Factor
     '''
     value =  1 / f_given_p(interest, periods)
-    return round7(value)
+    return _round7(value)
 
 
 def f_given_a(interest, periods=1):
@@ -72,7 +72,7 @@ def f_given_a(interest, periods=1):
         Uniform Series Compound Amount Factor.
     '''
     value =  ((1 + interest) ** periods - 1) / interest
-    return round7(value)
+    return _round7(value)
 
 
 def a_given_f(interest, periods=1):
@@ -80,7 +80,7 @@ def a_given_f(interest, periods=1):
         Sinking Fund Factor.
     '''
     value =  1 / f_given_a(interest, periods)
-    return round7(value)
+    return _round7(value)
 
 
 def a_given_p(interest, periods=1):
@@ -89,7 +89,7 @@ def a_given_p(interest, periods=1):
     '''
     value =  (interest * (1 + interest) ** periods) \
            / ((1 + interest) ** periods - 1)
-    return round7(value)
+    return _round7(value)
 
 
 def p_given_a(interest, periods=1):
@@ -97,7 +97,7 @@ def p_given_a(interest, periods=1):
         Series Present Worth Factor.
     '''
     value =  1 / a_given_p(interest, periods)
-    return round7(value)
+    return _round7(value)
 
 
 def a_given_g(interest, periods=1):
@@ -105,15 +105,16 @@ def a_given_g(interest, periods=1):
         Arithmetic Gradient to Annuity Conversion Factor.
     '''
     value =  1/interest - periods / ((1 + interest)**periods - 1)
-    return round7(value)
+    return _round7(value)
 
 
 def p_given_a_geo(growth, interest_0, periods=1):
     '''
         Geometric Gradient Series to Present Worth Conversion Factor.
     '''
+    print('Warning: untested')
     value =  p_given_a(interest_0, periods) / (1 + growth)
-    return round7(value)
+    return _round7(value)
 
 
 # SHORTHAND ALIASES ###########################################################
@@ -134,7 +135,7 @@ pgageo = p_given_a_geo
 
 
 # UTILITIES ###################################################################
-def round7(value):
+def _round7(value):
     return round(value, 7)
 
 
