@@ -17,6 +17,22 @@
 | Geometric Gradient Series to Present Worth Conversion Factor | `p_given_a_geo`, `pgageo`      |
 
 
+## Usage
+Get source.
+
+    $ git clone https://github.com/francium/eng_econ.git
+
+Launch python from same parent directory (folder) as the `eng_econ` repo we
+just cloned. Otherwise, you won't be able to import `eng_econ`.
+
+    $ python3
+    >>> import eng_econ as econ
+    >>> econ.fga(.01, 12)
+    12.682503
+    >>> 123 * pga(0.03, 12) + 4002.43 * pgf(0.03, 12)
+    4031.566272957
+
+
 ## API
 
 ### Description
