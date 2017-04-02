@@ -4,21 +4,24 @@ import unittest
 import formulae as fx
 
 class TestFormulae(unittest.TestCase):
-    def setUp(self):
+    pass
+
+
+class TestGenerator():
+    def __init__(self):
         self.data = load_test_data()
 
-    def test_all(self):
         for test in self.generate_tests():
-            test()
+            setattr(TestFormulae, test.__name__, test)
+
 
     def generate_tests(self) -> '[function]':
-
         for label in self.data.keys():
             for values in self.data[label]:
                 inputs = {'interest': 0.01, 'periods': values[0]}
 
-                def test():
-                    func = fx.__getattribute__(parse_label(label))
+                def test(self):
+                    func = getattr(fx, parse_label(label))
                     result = func(**inputs)
                     expected = values[1]
 
@@ -26,18 +29,7 @@ class TestFormulae(unittest.TestCase):
                             '\n\tTesting {} with input {}'
                             .format(parse_label(label), inputs))
 
-                    # Verbose output
-                    #  result = round(result, 2)
-                    #  expected = round(expected, 2)
-                    #  is_close = not(result - expected)
-                    #
-                    #  print('\n\tTesting {} with input {}'
-                    #          .format(parse_label(label), inputs))
-                    #  print('\t\tGot {}\tExpected {}'.format(expected, result),
-                    #          end='')
-                    #
-                    #  print('\t...ok' if is_close else '...fail')
-
+                test.__name__ += '{}{}'.format(parse_label(label), values[0])
                 yield test
 
 
@@ -75,4 +67,5 @@ def column(array: [[float]], col) -> '(n, value)':
 
 
 if __name__ == '__main__':
+    test_generator = TestGenerator()
     unittest.main()
